@@ -18,6 +18,6 @@ if __name__ == '__main__':
 
 # Run these commands
 # export FLASK_APP=server.py
-# $ flask run
+# flask run
 # OR TO MAKE IT PUBLICLY AVAILABLE
 # flask run --host=0.0.0.0
