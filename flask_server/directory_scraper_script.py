@@ -16,18 +16,18 @@ def scrape_directory(first_name, last_name):
         last_name_box = driver.find_element_by_name('ctl00$ctl00$PageContent$PageContent$middDirectoryForm$txtLastName')
         # Select the first name
         first_name_box = driver.find_element_by_name('ctl00$ctl00$PageContent$PageContent$middDirectoryForm$txtFirstName')
-        last_name_box.send_keys(first_name)
-        first_name_box.send_keys(last_name)
+        last_name_box.send_keys(last_name)
+        first_name_box.send_keys(first_name)
         login_button = driver.find_element_by_name('ctl00$ctl00$PageContent$PageContent$middDirectoryForm$btnSearch')
         # Click login
         login_button.click()
         # Get the properties of the user:
         user_email = driver.find_element_by_id("rptProperties_ctl02_lblPropertyValue")
-
-        student_address = driver.find_element_by_id("rptProperties_ctl04_lblPropertyValue")
+        student_address = driver.find_element_by_id("rptProperties_ctl03_lblPropertyValue")
         user_email_text = user_email.text
         student_address_text = student_address.text
+        print(f'Values: {user_email_text} {student_address_text}')
         driver.close()
-        return [user_email_text, student_address_text]
+        return user_email_text, student_address_text
     except Exception as e:
         print(e)

@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Loading from './components/Loading';
-import MiddleScreen from './components/MiddleScreen';
+import Loading from './Loading';
 
-class App extends React.Component {
+class ScannedResultsScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -13,12 +12,10 @@ class App extends React.Component {
     }
   }
 
-
-
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up MiddleScreen.js to start working on your MiddleScreen!</Text>
+        <Text>Open up ScannedResultsScreen.js to start working on your ScannedResultsScreen!</Text>
         <Text>Email: {this.props.email}</Text>
         <Text>Address: {this.props.address}</Text>
       </View>
@@ -35,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Loading(App);
+export default Loading(ScannedResultsScreen);
