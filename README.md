@@ -10,16 +10,12 @@ You can branch from LocalDevBranch with this command in git:
 
 # Running the Project:
 
-You'll want to cd into the flask server directory:
+In a terminal session, run the command to start the flask server:
 
-`cd flask_server/`
+`./run_flask_run`
 
-`export FLASK_APP=server.py && flask run/`
+In a different terminal session, run the command script:
 
-You'll want to cd into the React native app:
-
-`cd react_native/`
-
-`expo start`
+`./run_react_native`
 
 You should have both applications up and running then.  

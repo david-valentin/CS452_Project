@@ -1,3 +1,4 @@
+'use strict';
 import React, { PureComponent } from 'react';
 import {
   ActivityIndicator,
@@ -17,20 +18,23 @@ const Loading = (ComponentToLoad) => {
     }
 
     componentDidMount() {
-      return fetch('http://127.0.0.1:5000/student-info/David/Valentin')
-      .then((res) => {
-        if (res.status === 200) {
-          console.log("Res ", res);
-          return res.json();
-        }
-      })
-      .then((res_json) => {
-        console.log("Res_json: ", JSON.stringify(res_json));
-        this.setState({address : res_json.address, email : res_json.email, loading: false})
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      setTimeout(() => {
+        this.setState({loading: false})
+      }, 3000)
+      // return fetch('http://127.0.0.1:5000/student-info/David/Valentin')
+      // .then((res) => {
+      //   if (res.status === 200) {
+      //     console.log("Res ", res);
+      //     return res.json();
+      //   }
+      // })
+      // .then((res_json) => {
+      //   console.log("Res_json: ", JSON.stringify(res_json));
+      //   this.setState({address : res_json.address, email : res_json.email, loading: false})
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      // });
     }
 
     render() {

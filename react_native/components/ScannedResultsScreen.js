@@ -1,6 +1,9 @@
+'use strict';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Loading from './Loading';
+import { Button } from 'react-native';
+
 
 class ScannedResultsScreen extends React.Component {
   constructor(props) {
@@ -12,13 +15,14 @@ class ScannedResultsScreen extends React.Component {
     }
   }
 
+
   render() {
     return (
       <View style={styles.container}>
         <Text>Open up ScannedResultsScreen.js to start working on your ScannedResultsScreen!</Text>
         <Text>Email: {this.props.email}</Text>
         <Text>Address: {this.props.address}</Text>
-      </View>
+        </View>
     );
   }
 }

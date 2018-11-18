@@ -1,0 +1,22 @@
+dependencies: \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Views/ScrollView/RCTScrollContentView.m \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Views/ScrollView/RCTScrollContentView.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Views/RCTView.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Views/RCTComponent.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Views/UIView+React.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Views/ScrollView/RCTScrollView.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Views/RCTAutoInsetsProtocol.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/davidvalentin/Projects/Image_Processing/react_native/node_modules/react-native/React/Views/ScrollView/RCTScrollableProtocol.h

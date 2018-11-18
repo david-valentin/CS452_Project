@@ -1,7 +1,10 @@
+'use strict';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
+import {Button, NavigatorIOS, Text, View, StyleSheet} from 'react-native';
 import Loading from './components/Loading';
-import MiddleScreen from './components/MiddleScreen';
+import {createStackNavigator} from 'react-navigation';
+import NavigationIOSApp from "./components/NavigationIOSApp";
 
 class App extends React.Component {
   constructor(props) {
@@ -13,15 +16,9 @@ class App extends React.Component {
     }
   }
 
-
-
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up MiddleScreen.js to start working on your MiddleScreen!</Text>
-        <Text>Email: {this.props.email}</Text>
-        <Text>Address: {this.props.address}</Text>
-      </View>
+      <NavigationIOSApp/>
     );
   }
 }
@@ -33,6 +30,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text : {
+    backgroundColor: 'black'
+  }
 });
 
-export default Loading(App);
+export default App;
