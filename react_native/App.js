@@ -1,11 +1,25 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+
+import {
+  StyleSheet,
+  View,
+  Text,
+  NativeModules,
+  DeviceEventEmitter,
+} from 'react-native';
+
+import Uploader from './Uploader';
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    var RNUploader = NativeModules.RNUploader;
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <Uploader />
       </View>
     );
   }
