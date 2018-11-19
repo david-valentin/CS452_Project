@@ -1,9 +1,18 @@
 'use strict';
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Button, NavigatorIOS, Text, View, StyleSheet} from 'react-native';
+import {
+  Button,
+  NavigatorIOS,
+  Text,
+  View,
+  StyleSheet,
+  AppRegistry,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import { RNCamera } from 'react-native-camera';
 import CameraView from './CameraView';
-
 
 class MyScene extends React.Component {
 
@@ -20,29 +29,28 @@ class MyScene extends React.Component {
   }
 
   _onForward() {
-    let nextIndex = ++this.props.index;
+    let nextIndex = this.props.index;
+    console.log("Value: ", nextIndex, this.props.index);
     this.props.navigator.push({
-      component: MyScene,
-      title: 'Scene ' + nextIndex,
-      passProps: {index: nextIndex},
-    });
+      component: CameraView,
+      title: 'Scan ID',
+    })
   }
 
-
   render() {
-    console.log("Loading the initial view");
+    console.log("Other: ", this.props.index);
+
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Mail Center ID Scanner</Text>
+        <Text>Current Scene: {this.props.title}</Text>
         <Button
           onPress={this._onForward}
-          title="Tap being scanning ID"
+          title="Tap me to load the next scene"
         />
       </View>
     );
   }
 }
-
 
 export default class NavigationIOSApp extends React.Component {
 
@@ -51,8 +59,9 @@ export default class NavigationIOSApp extends React.Component {
     return (
       <NavigatorIOS
         initialRoute={{
-          component: CameraView,
+          component: MyScene,
           title: 'ID Scanner',
+          passProps: {index: 1},
         }}
         style={{flex: 1}}
       />

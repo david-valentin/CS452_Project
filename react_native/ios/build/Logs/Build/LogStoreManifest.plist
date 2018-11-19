@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>9</integer>
+	<key>logs</key>
+	<dict>
+		<key>181D9DDE-B739-4306-9885-9E7F27A9F814</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>181D9DDE-B739-4306-9885-9E7F27A9F814.xcactivitylog</string>
+			<key>highLevelStatus</key>
+			<string>E</string>
+			<key>schemeIdentifier-containerName</key>
+			<string>cs452 project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>cs452</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project cs452 with scheme cs452 and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>564353725.17596197</real>
+			<key>timeStoppedRecording</key>
+			<real>564353778.25861394</real>
+			<key>title</key>
+			<string>Building project cs452 with scheme cs452 and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>181D9DDE-B739-4306-9885-9E7F27A9F814</string>
+		</dict>
+		<key>818FB8A2-3E24-4E81-BE5A-7BAB70B5E146</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>818FB8A2-3E24-4E81-BE5A-7BAB70B5E146.xcactivitylog</string>
+			<key>highLevelStatus</key>
+			<string>E</string>
+			<key>schemeIdentifier-containerName</key>
+			<string>cs452 project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>cs452</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project cs452 with scheme cs452 and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>564355018.785972</real>
+			<key>timeStoppedRecording</key>
+			<real>564355031.80873001</real>
+			<key>title</key>
+			<string>Building project cs452 with scheme cs452 and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>818FB8A2-3E24-4E81-BE5A-7BAB70B5E146</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
