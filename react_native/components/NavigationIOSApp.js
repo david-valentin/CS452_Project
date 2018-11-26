@@ -20,11 +20,13 @@ class MyScene extends React.Component {
   }
 
   _onForward() {
-    let nextIndex = ++this.props.index;
+    console.log("Index ", this.props.index);
+    // let nextIndex = ++this.props.index;
+    // console.log("Index ", nextIndex);
     this.props.navigator.push({
-      component: MyScene,
-      title: 'Scene ' + nextIndex,
-      passProps: {index: nextIndex},
+      component: CameraView,
+      title: 'Scene ' + 1,
+      passProps: {index:  1},
     });
   }
 
@@ -51,8 +53,9 @@ export default class NavigationIOSApp extends React.Component {
     return (
       <NavigatorIOS
         initialRoute={{
-          component: CameraView,
+          component: MyScene,
           title: 'ID Scanner',
+          passProps: { index: 1 }
         }}
         style={{flex: 1}}
       />
