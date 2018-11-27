@@ -38,7 +38,7 @@ class MyScene extends React.Component {
         <Text style={styles.text}>Mail Center ID Scanner</Text>
         <Button
           onPress={this._onForward}
-          title="Tap being scanning ID"
+          title="Tap to begin scanning ID"
         />
       </View>
     );
