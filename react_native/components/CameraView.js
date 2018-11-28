@@ -27,7 +27,7 @@ export default class CameraView extends Component {
           onGoogleVisionBarcodesDetected={({ barcodes }) => {
             console.log(barcodes)
         }}>
-          <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center',}}>
+          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
               <TouchableOpacity style={styles.capture} onPress={this.takePicture.bind(this)}>
                   <Text style={styles.text}>Take</Text>
               </TouchableOpacity>
@@ -55,15 +55,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'black'
   },
   text : {
-    color: 'black'
+    color: 'black',
+    alignSelf: 'flex-end'
   },
   capture: {
     flex: 0,
     backgroundColor: '#fff',
     borderRadius: 5,
-    paddingTop: 100,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
+
+    padding: 15,
+    alignSelf: 'flex-end',
     margin: 20
   }
 });
