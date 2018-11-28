@@ -26,7 +26,7 @@ def scrape_directory(first_name, last_name):
         student_address = driver.find_element_by_id("rptProperties_ctl03_lblPropertyValue")
         user_email_text = user_email.text
         student_address_text = student_address.text
-        print(f'Values: {user_email_text} {student_address_text}')
+        print('Values')
         driver.close()
         return user_email_text, student_address_text
     except Exception as e:
