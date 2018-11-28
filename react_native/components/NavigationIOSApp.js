@@ -46,7 +46,7 @@ class MyScene extends React.Component {
       <ScrollView style={styles.scrollViewStyle}
       contentContainerStyle ={styles.contentContainer}
       scrollEnabled={false}
-      contentCenter={true}>
+      >
         <View style={styles.container}>
             <Image
               style={{width: 50, height: 50, flexDirection : 'row', justifyContent : 'center'}}
