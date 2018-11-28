@@ -1,7 +1,16 @@
 'use strict';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, NavigatorIOS, Text, View, StyleSheet, ScrollView} from 'react-native';
+import {
+  Button,
+  NavigatorIOS,
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  Image
+} from 'react-native';
+
 import CameraView from './CameraView';
 
 
@@ -25,7 +34,7 @@ class MyScene extends React.Component {
     // console.log("Index ", nextIndex);
     this.props.navigator.push({
       component: CameraView,
-      title: 'Scene ' + 1,
+      title: 'Scanner',
       passProps: {index:  1},
     });
   }
@@ -34,10 +43,18 @@ class MyScene extends React.Component {
   render() {
     console.log("Loading the initial view");
     return (
-      <ScrollView>
+      <ScrollView style={styles.scrollViewStyle}
+      contentContainerStyle ={styles.contentContainer}
+      scrollEnabled={false}
+      contentCenter={true}>
         <View style={styles.container}>
+            <Image
+              style={{width: 50, height: 50, flexDirection : 'row', justifyContent : 'center'}}
+              source={require('../assets/app-imgs/mail-scanner-img-100px.png')}
+             />
             <Text style={styles.text}>Mail Center ID Scanner</Text>
             <Button
+              style={styles.btnToScanner}
               onPress={this._onForward}
               title="Tap to begin scanning ID"
             />
@@ -68,12 +85,29 @@ export default class NavigationIOSApp extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     flexDirection : 'column',
     justifyContent: 'center',
+    backgroundColor : '#80DED9'
+  },
+  scrollViewStyle : {
+    backgroundColor : '#80DED9',
+  },
+  contentContainer : {
+    alignItems: 'center',
+    flexDirection : 'column',
+    justifyContent: 'center',
+    flexGrow: 1,
+  },
+  btnToScanner : {
+    fontSize : 10,
+    backgroundColor : '#3066BE',
+    padding : 20,
+    color : '#3066BE'
   },
   text : {
     color: 'black',
+    fontFamily : 'Avenir',
+    fontSize : 20,
   }
 });

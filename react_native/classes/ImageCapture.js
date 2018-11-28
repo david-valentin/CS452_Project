@@ -11,8 +11,11 @@ class ImageCapture {
     this.uploadImageToServer = this.uploadImageToServer.bind(this);
   }
 
-  uploadImageToServer() {
-    return this.fetch(this.getServerAddress())
+  uploadImageToServer(data) {
+    return this.fetch(this.getServerAddress() + '/upload-image/', {
+      method: 'POST',
+      body : data,
+    })
     .then((res) => {
       console.log("Res ", res);
     })
