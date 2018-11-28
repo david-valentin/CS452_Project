@@ -11,7 +11,15 @@ import {
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
+import ImageCapture from '../classes/ImageCapture';
+
 export default class CameraView extends Component {
+
+  constructor() {
+    super();
+    this.ImageCapture = new ImageCapture('http://0.0.0.0:80/');
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -27,7 +35,7 @@ export default class CameraView extends Component {
           onGoogleVisionBarcodesDetected={({ barcodes }) => {
             console.log(barcodes)
         }}>
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={styles.cameraContainer}>
               <TouchableOpacity style={styles.capture} onPress={this.takePicture.bind(this)}>
                   <Text style={styles.text}>Take</Text>
               </TouchableOpacity>
@@ -44,6 +52,7 @@ export default class CameraView extends Component {
       const coded = data.base64;
       const uri = data.uri;
       console.log(uri);
+
     }
   };
 }
@@ -58,11 +67,15 @@ const styles = StyleSheet.create({
     color: 'black',
     alignSelf: 'flex-end'
   },
+  cameraContainer : {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
   capture: {
     flex: 0,
     backgroundColor: '#fff',
     borderRadius: 5,
-
     padding: 15,
     alignSelf: 'flex-end',
     margin: 20

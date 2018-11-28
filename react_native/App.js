@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, NavigatorIOS, Text, View, StyleSheet} from 'react-native';
+import {Button, NavigatorIOS, Text, View, StyleSheet, ScrollView} from 'react-native';
 import Loading from './components/Loading';
 import {createStackNavigator} from 'react-navigation';
 import NavigationIOSApp from "./components/NavigationIOSApp";
@@ -18,7 +18,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <NavigationIOSApp/>
+      <NavigationIOSApp style={styles.container}/>
     );
   }
 }
