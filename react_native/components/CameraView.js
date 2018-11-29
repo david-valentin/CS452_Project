@@ -18,7 +18,7 @@ import DisplayUserInfo from './DisplayUserInfo';
 /**
  * CameraView presents the camera view for capturing the image
  */
-export default class CameraView extends Component {
+class CameraView extends Component {
 
   constructor() {
     super();
@@ -30,25 +30,7 @@ export default class CameraView extends Component {
     this.handleUploadImage = this.handleUploadImage.bind(this);
     this.takePicture = this.takePicture.bind(this);
     this.renderCameraView = this.renderCameraView.bind(this);
-    this.renderCaptureButton = this.renderCaptureButton.bind(this);
-    this.determineImage = this.determineImage.bind(this);
   }
-
-  /**
-   * renderCaptureButton - Renders the button to capture the image
-   *
-   * @return {COMPONENT}  description
-   */
-  renderCaptureButton() {
-    return (
-      <View style={styles.cameraContainer}>
-          <TouchableOpacity style={styles.capture} onPress={this.takePicture.bind(this)}>
-              <Image source={require()} style={styles.capture}/>
-          </TouchableOpacity>
-      </View>
-    )
-  }
-
 
   /**
    * renderCameraView - Renders the camera view
@@ -70,12 +52,14 @@ export default class CameraView extends Component {
           onGoogleVisionBarcodesDetected={({ barcodes }) => {
             console.log(barcodes)
         }}>
-          {
-            this.renderCaptureButton();
-          }
+        <View style={styles.cameraContainer}>
+            <TouchableOpacity style={styles.capture} onPress={this.takePicture.bind(this)}>
+              <Image source={require('../assets/app-imgs/img-camera-50.png')} style={styles.capture}/>
+            </TouchableOpacity>
+        </View>
         </RNCamera>
       </View>
-    )
+    );
   }
 
   /**
@@ -85,12 +69,11 @@ export default class CameraView extends Component {
    * @return {type}             description
    */
   async handleUploadImage(picturePath) {
-
     let data = new FormData();
     var photo = {
     	uri: picturePath,
     	type: 'image/jpeg',
-    	name: 'photo.jpg',
+    	name: 'scanned_image.jpg',
     };
     data.append('photo', photo);
     data.append('title', 'scanned_id')
@@ -118,6 +101,7 @@ export default class CameraView extends Component {
     */
    async takePicture() {
     if (this.camera) {
+
       const options = { quality: 0.5, base64: true };
       this.camera.takePictureAsync(options)
       .then((data) => {
@@ -147,26 +131,18 @@ export default class CameraView extends Component {
     } else {
       return false;
     }
-  };
 
-  
+  }
+
+
   render() {
     if (!this.state.imageUploadedSuccessfully) {
       return (
-        this.renderCameraView();
+        this.renderCameraView()
       );
-    } else if (this.state.imageUploadedSuccessfully) {
+    } else {
       return (
-        <Alert
-          'Alert Title',
-          'My Alert Msg',
-          [
-            {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-            {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-            {text: 'OK', onPress: () => console.log('OK Pressed')},
-          ],
-          { cancelable: false }
-        />
+        null
       )
     }
   }
@@ -192,3 +168,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   }
 });
+
+
+export default CameraView;
