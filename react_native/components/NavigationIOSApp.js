@@ -14,7 +14,7 @@ import {
 import CameraView from './CameraView';
 
 
-class MyScene extends React.Component {
+class InitialScene extends React.Component {
 
   static propTypes = {
     route: PropTypes.shape({
@@ -72,7 +72,7 @@ export default class NavigationIOSApp extends React.Component {
     return (
       <NavigatorIOS
         initialRoute={{
-          component: MyScene,
+          component: InitialScene,
           title: 'ID Scanner',
           passProps: { index: 1 }
         }}

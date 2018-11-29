@@ -8,11 +8,12 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   View,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import ImageCapture from '../classes/ImageCapture';
-
+import DisplayUserInfo from './DisplayUserInfo';
 
 /**
  * CameraView presents the camera view for capturing the image
@@ -23,19 +24,38 @@ export default class CameraView extends Component {
     super();
     this.state = {
       imageURL: '',
+      imageCaptured : false
     };
     this.ImageCapture = new ImageCapture('http://0.0.0.0:80/');
     this.handleUploadImage = this.handleUploadImage.bind(this);
     this.takePicture = this.takePicture.bind(this);
+    this.renderCameraView = this.renderCameraView.bind(this);
+    this.renderCaptureButton = this.renderCaptureButton.bind(this);
+    this.determineImage = this.determineImage.bind(this);
   }
 
-  // <View style={styles.cameraContainer}>
-  //     <TouchableOpacity style={styles.capture} onPress={this.handleUploadImage.bind(this)}>
-  //         <Text style={styles.text}>Upload Image</Text>
-  //     </TouchableOpacity>
-  // </View>
+  /**
+   * renderCaptureButton - Renders the button to capture the image
+   *
+   * @return {COMPONENT}  description
+   */
+  renderCaptureButton() {
+    return (
+      <View style={styles.cameraContainer}>
+          <TouchableOpacity style={styles.capture} onPress={this.takePicture.bind(this)}>
+              <Image source={require()} style={styles.capture}/>
+          </TouchableOpacity>
+      </View>
+    )
+  }
 
-  render() {
+
+  /**
+   * renderCameraView - Renders the camera view
+   *
+   * @return {COMPONENT}  description
+   */
+  renderCameraView() {
     return (
       <View style={styles.container}>
         <RNCamera
@@ -50,17 +70,13 @@ export default class CameraView extends Component {
           onGoogleVisionBarcodesDetected={({ barcodes }) => {
             console.log(barcodes)
         }}>
-          <View style={styles.cameraContainer}>
-              <TouchableOpacity style={styles.capture} onPress={this.takePicture.bind(this)}>
-                  <Image source={require('../assets/app-imgs/img-camera-50.png')} style={styles.capture}/>
-              </TouchableOpacity>
-          </View>
-
+          {
+            this.renderCaptureButton();
+          }
         </RNCamera>
       </View>
-    );
+    )
   }
-
 
   /**
    * async handleUploadImage - Handles Image Upload
@@ -69,24 +85,30 @@ export default class CameraView extends Component {
    * @return {type}             description
    */
   async handleUploadImage(picturePath) {
-    // Creates a new formdata object:
-    const data = new FormData();
-    // Appends the uri path of the photo and grabs the image data to the data
-    data.append('picture', { uri: picturePath, name: 'scanned.jpg', type: 'image/jpg' })
 
+    let data = new FormData();
+    var photo = {
+    	uri: picturePath,
+    	type: 'image/jpeg',
+    	name: 'photo.jpg',
+    };
+    data.append('photo', photo);
+    data.append('title', 'scanned_id')
+    // Appends the uri path of the photo and grabs the image data to the data
     this.ImageCapture.uploadImageToServer(data)
       .then((response) => {
         if (response) {
-          console.log("Success");
+          console.log("Success ", response);
+          Promise.resolve(true);
         } else {
-          console.log("Failed");
+          console.log("Failed ", response);
+          Promise.resolve(false);
         }
       })
       .catch(err => {
         console.error(err);
       });
   }
-
 
 
    /**
@@ -97,16 +119,57 @@ export default class CameraView extends Component {
    async takePicture() {
     if (this.camera) {
       const options = { quality: 0.5, base64: true };
-      const data = await this.camera.takePictureAsync(options);
-      const coded = data.base64;
-      const uri = data.uri;
-      console.log(uri);
-      this.setState({uri : uri})
-      return true
+      this.camera.takePictureAsync(options)
+      .then((data) => {
+        let uri = data.uri;
+        return uri;
+      })
+      .then((uri) => {
+        this.setState({imageURL : uri})
+      })
+      .then(_ => {
+        console.log("STATE: ", this.state.imageURL);
+        if (this.handleUploadImage(this.state.imageURL)) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .then((uploadedToServer) => {
+        if (uploadedToServer) {
+          this.setState({imageUploadedSuccessfully : true})
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        return false;
+      });
     } else {
       return false;
     }
   };
+
+  
+  render() {
+    if (!this.state.imageUploadedSuccessfully) {
+      return (
+        this.renderCameraView();
+      );
+    } else if (this.state.imageUploadedSuccessfully) {
+      return (
+        <Alert
+          'Alert Title',
+          'My Alert Msg',
+          [
+            {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+            {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ],
+          { cancelable: false }
+        />
+      )
+    }
+  }
 }
 
 const styles = StyleSheet.create({
