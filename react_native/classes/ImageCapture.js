@@ -12,7 +12,7 @@ class ImageCapture {
   }
 
   uploadImageToServer(data) {
-    return this.fetch(this.getServerAddress() + '/upload-image/', {
+    return this.fetch(this.getServerAddress() + 'upload-image/', {
       method: 'POST',
       body : data,
     })
