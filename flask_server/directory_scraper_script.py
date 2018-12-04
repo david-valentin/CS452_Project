@@ -9,7 +9,7 @@ from selenium.webdriver.common.keys import Keys
 
 def scrape_directory(first_name, last_name):
     try:
-        driver = webdriver.Firefox('/home/dvalentin/Desktop/firefox.desktop')
+        driver = webdriver.Firefox('~/home/dvalentin/Desktop/firefox.desktop')
         # Open the website
         driver.get('https://directory.middlebury.edu')
         # Select the last name
