@@ -60,8 +60,6 @@ class ImageCapture {
  			});
   }
 
-
-
   	/**
   	 * _checkStatus - Checks the status of the response. Called with the fetch api
   	 *
