@@ -21,7 +21,7 @@ def get_student_info(first_name, last_name):
     result = directory_scraper_script.scrape_directory(first_name, last_name)
     if (result != None):
 
-        print(f`${result[0] result[1]}`)
+        print(f'${result[0]} {result[1]}')
         data = {
             'email'  : result[0],
             'address' : result[1]
