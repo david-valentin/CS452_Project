@@ -17,15 +17,22 @@ def index():
 
 @app.route('/student-info/<string:first_name>/<string:last_name>', methods=['GET'])
 def get_student_info(first_name, last_name):
+    
     result = directory_scraper_script.scrape_directory(first_name, last_name)
-    print(result)
-    data = {
-        'email'  : result[0],
-        'address' : result[1]
-    }
-    results = json.dumps(data)
-    resp = Response(results, status=200, mimetype='application/json')
-    return resp
+    if (result != None):
+
+        print(f`${result[0] result[1]}`)
+        data = {
+            'email'  : result[0],
+            'address' : result[1]
+        }   
+        results = json.dumps(data)
+
+        resp = Response(results, status=200, mimetype='application/json')
+        return resp
+    else:
+         resp = Response(status=400, mimetype='application/json')
+         return resp
 
 @app.route('/upload-image/')
 def upload_file():
