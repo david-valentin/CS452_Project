@@ -3,6 +3,8 @@ import directory_scraper_script
 from werkzeug.utils import secure_filename
 import os
 from flask_cors import CORS
+from flask_api import status
+
 
 UPLOAD_FOLDER = '/imgs/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -17,7 +19,7 @@ def index():
 def get_student_info(first_name, last_name):
     result = directory_scraper_script.scrape_directory(first_name, last_name)
     print(result)
-    return jsonify(email=result[0], address=result[1], status_code=200, mimetype='application/json')
+    return jsonify(email=result[0], address=result[1]), status.HTTP_200_OK
 
 @app.route('/upload-image/')
 def upload_file():
