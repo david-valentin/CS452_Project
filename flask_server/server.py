@@ -17,7 +17,7 @@ def index():
 def get_student_info(first_name, last_name):
     result = directory_scraper_script.scrape_directory(first_name, last_name)
     print(result)
-    return Response(jsonify(email=result[0], address=result[1]), status=200, mimetype='application/json')
+    return jsonify(email=result[0], address=result[1]), status=200, mimetype='application/json')
 
 @app.route('/upload-image/')
 def upload_file():
@@ -35,7 +35,7 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return Response(True, status=200, mimetype='application/json')
+            return jsonify(success=True, status=200, mimetype='application/json')
 
 if __name__ == "__main__":
     app.debug = True

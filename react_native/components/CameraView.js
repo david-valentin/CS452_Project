@@ -26,7 +26,7 @@ class CameraView extends Component {
       imageURL: '',
       imageCaptured : false
     };
-    this.ImageCapture = new ImageCapture('http://0.0.0.0:80/');
+    this.ImageCapture = new ImageCapture('basin.cs.middlebury.edu:5000');
     this.handleUploadImage = this.handleUploadImage.bind(this);
     this.takePicture = this.takePicture.bind(this);
     this.renderCameraView = this.renderCameraView.bind(this);
