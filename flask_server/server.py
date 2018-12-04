@@ -19,7 +19,13 @@ def index():
 def get_student_info(first_name, last_name):
     result = directory_scraper_script.scrape_directory(first_name, last_name)
     print(result)
-    return jsonify(email=result[0], address=result[1]), status.HTTP_200_OK
+    data = {
+        'email'  : result[0],
+        'address' : result[1]
+    }
+    results = json.dumps(data)
+    resp = Response(results, status=200, mimetype='application/json')
+    return resp
 
 @app.route('/upload-image/')
 def upload_file():
@@ -37,8 +43,11 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return jsonify(success=True, status_code=200, mimetype='application/json')
-
+            data = {
+                success : True
+            }
+            return Response(json.dumps(data), status=200, mimetype='application/json')
+            
 if __name__ == "__main__":
     app.debug = False
     app.run(host = '0.0.0.0',port=5000)
