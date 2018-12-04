@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 import directory_scraper_script
 from werkzeug.utils import secure_filename
 import os
+from flask_cors import CORS
+
 UPLOAD_FOLDER = '/imgs/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
@@ -36,10 +38,10 @@ def upload_file():
             return Response(True, status=200, mimetype='application/json')
 
 if __name__ == "__main__":
-    app.secret_key = os.urandom(24)
-    app.run(debug=True,host="0.0.0.0", port=80, use_reloader=False)
+    app.debug = True
+    app.run(host = '0.0.0.0',port=5000)
 
-flask_cors.CORS(app, expose_headers='Authorization')
+CORS(app, expose_headers='Authorization')
 # Run these commands
 # export FLASK_APP=server.py
 # flask run

@@ -75,7 +75,7 @@ class CameraView extends Component {
     	type: 'image/jpeg',
     	name: 'scanned_image.jpg',
     };
-    data.append('photo', photo);
+    data.append('file', photo);
     data.append('title', 'scanned_id')
     // Appends the uri path of the photo and grabs the image data to the data
     this.ImageCapture.uploadImageToServer(data)
@@ -101,33 +101,33 @@ class CameraView extends Component {
     */
    async takePicture() {
     if (this.camera) {
-
       const options = { quality: 0.5, base64: true };
       this.camera.takePictureAsync(options)
-      .then((data) => {
-        let uri = data.uri;
-        return uri;
-      })
-      .then((uri) => {
-        this.setState({imageURL : uri})
-      })
-      .then(_ => {
-        console.log("STATE: ", this.state.imageURL);
-        if (this.handleUploadImage(this.state.imageURL)) {
-          return true;
-        } else {
+        .then((data) => {
+          let uri = data.uri;
+          return uri;
+        })
+        .then((uri) => {
+          this.setState({ imageURL : uri })
+        })
+        .then(_ => {
+          console.log("STATE: ", this.state.imageURL);
+          if (this.handleUploadImage(this.state.imageURL)) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+        .then((uploadedToServer) => {
+          // If we were able to upload our image to the server
+          if (uploadedToServer) {
+            this.setState({imageUploadedSuccessfully : true})
+          }
+        })
+        .catch((err) => {
+          console.error(err);
           return false;
-        }
-      })
-      .then((uploadedToServer) => {
-        if (uploadedToServer) {
-          this.setState({imageUploadedSuccessfully : true})
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        return false;
-      });
+        });
     } else {
       return false;
     }
@@ -140,9 +140,9 @@ class CameraView extends Component {
       return (
         this.renderCameraView()
       );
-    } else {
+    } else if (this.state.imageUploadedSuccessfully) {
       return (
-        null
+        <Text>We Did it!</Text>
       )
     }
   }
