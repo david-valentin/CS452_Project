@@ -1,9 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 import directory_scraper_script
 from werkzeug.utils import secure_filename
+from werkzeug.wrappers import Request, Response
 import os
 from flask_cors import CORS
 from flask_api import status
+from pyvirtualdisplay import Display
+
 
 
 UPLOAD_FOLDER = '/imgs/'
