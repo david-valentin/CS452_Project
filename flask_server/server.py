@@ -6,7 +6,7 @@ import os
 from flask_cors import CORS
 from flask_api import status
 from pyvirtualdisplay import Display
-
+import json
 
 
 UPLOAD_FOLDER = '/imgs/'

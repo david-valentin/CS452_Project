@@ -12,11 +12,10 @@ from xvfbwrapper import Xvfb
 
 def scrape_directory(first_name, last_name):
     try:
-        binary = FirefoxBinary('/home/dvalentin/Desktop')
         vdisplay = Xvfb(width=1280, height=740, colordepth=16)
         vdisplay.start()
 
-        driver = webdriver.Firefox(firefox_binary = binary)
+        driver = webdriver.Firefox()
         # Open the url
         driver.get('https://directory.middlebury.edu')
         # Select the last name
