@@ -26,7 +26,7 @@ class CameraView extends Component {
       imageURL: '',
       imageCaptured : false
     };
-    this.ImageCapture = new ImageCapture('basin.cs.middlebury.edu:5000');
+    this.ImageCapture = new ImageCapture('http://basin.cs.middlebury.edu:5000');
     this.handleUploadImage = this.handleUploadImage.bind(this);
     this.takePicture = this.takePicture.bind(this);
     this.renderCameraView = this.renderCameraView.bind(this);
@@ -95,13 +95,14 @@ class CameraView extends Component {
 
 
    /**
-    * async takePicture - Takes a photo with the users camera
+    * async takePicture - Takes a photo with the users camera. This is just a wrapper
     *
     * @return {BOOL}  returns whether we were able to take a photo with the camera
     */
    async takePicture() {
     if (this.camera) {
       const options = { quality: 0.5, base64: true };
+      // this calls the take picture
       this.camera.takePictureAsync(options)
         .then((data) => {
           let uri = data.uri;
@@ -113,15 +114,21 @@ class CameraView extends Component {
         .then(_ => {
           console.log("STATE: ", this.state.imageURL);
           if (this.handleUploadImage(this.state.imageURL)) {
+            console.log("UPLOADED TO SERVER");
             return true;
           } else {
+            console.log("FAILED TO UPLOAD TO SERVER");
             return false;
           }
         })
         .then((uploadedToServer) => {
+          console.log("DID WE UPLOAD: ", uploadedToServer);
           // If we were able to upload our image to the server
           if (uploadedToServer) {
+            console.log("Calling the upload to the server");
             this.setState({imageUploadedSuccessfully : true})
+          } else {
+            console.log("Failed to upload to the server");
           }
         })
         .catch((err) => {
@@ -142,7 +149,9 @@ class CameraView extends Component {
       );
     } else if (this.state.imageUploadedSuccessfully) {
       return (
-        <Text>We Did it!</Text>
+        <View style={styles.cameraContainer}>
+          <Text>We Did it!</Text>
+        </View>
       )
     }
   }
