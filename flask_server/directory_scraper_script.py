@@ -6,11 +6,17 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 # need brew install chromedriver
+from pyvirtualdisplay import Display
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from xvfbwrapper import Xvfb
 
 def scrape_directory(first_name, last_name):
     try:
-        driver = webdriver.Firefox('/home/dvalentin/Desktop/firefox.desktop')
-        # Open the website
+        vdisplay = Xvfb(width=1280, height=740, colordepth=16)
+        vdisplay.start()
+
+        driver = webdriver.Firefox()
+        # Open the url
         driver.get('https://directory.middlebury.edu')
         # Select the last name
         last_name_box = driver.find_element_by_name('ctl00$ctl00$PageContent$PageContent$middDirectoryForm$txtLastName')
@@ -26,8 +32,8 @@ def scrape_directory(first_name, last_name):
         student_address = driver.find_element_by_id("rptProperties_ctl03_lblPropertyValue")
         user_email_text = user_email.text
         student_address_text = student_address.text
-        print('Values')
         driver.close()
+        vdisplay.stop()
         return user_email_text, student_address_text
     except Exception as e:
         print(e)
