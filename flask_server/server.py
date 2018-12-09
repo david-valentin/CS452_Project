@@ -43,7 +43,7 @@ def upload_file():
     try:
         print("No file selected!")
 
-        if request.method == 'POST' and file == request.files['file'] !== None:
+        if request.method == 'POST' and file == request.files['file'] != None:
             print("The method is a post request.")
             # check if the post request has the file part
             if 'file' not in request.files:
