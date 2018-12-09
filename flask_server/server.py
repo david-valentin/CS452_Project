@@ -41,12 +41,20 @@ def get_student_info(first_name, last_name):
 @app.route('/upload-image/', methods=['POST'])
 def upload_file():
     try:
-        if request.method == 'POST':
+        print("No file selected!")
+
+        if request.method == 'POST' and file = request.files['file'] !== None:
             print("The method is a post request.")
             # check if the post request has the file part
             if 'file' not in request.files:
                 flash('No file part')
                 return redirect(request.url)
+            else:
+                print("'file' not in request.files!")
+                data = {
+                    success : False
+                }
+                return Response(json.dumps(data), status=200, mimetype='application/json')
             file = request.files['file']
             print("File: ", file)
             # if user does not select file, browser also
@@ -64,8 +72,19 @@ def upload_file():
                     success : True
                 }
                 return Response(json.dumps(data), status=200, mimetype='application/json')
+        else:
+            print("No file selected!")
+            data = {
+                success : False
+            }
+            return Response(json.dumps(data), status=200, mimetype='application/json')
     except Exception as e:
+        data = {
+            success : False
+        }
         print("It didn't work :()")
+        return Response(json.dumps(data), status=301, mimetype='application/json')
+
 
 if __name__ == "__main__":
     app.debug = False
