@@ -13,6 +13,7 @@ UPLOAD_FOLDER = '/imgs/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
@@ -20,7 +21,7 @@ def index():
 
 @app.route('/student-info/<string:first_name>/<string:last_name>', methods=['GET'])
 def get_student_info(first_name, last_name):
-    
+
     result = directory_scraper_script.scrape_directory(first_name, last_name)
     if (result != None):
 
@@ -28,7 +29,7 @@ def get_student_info(first_name, last_name):
         data = {
             'email'  : result[0],
             'address' : result[1]
-        }   
+        }
         results = json.dumps(data)
 
         resp = Response(results, status=200, mimetype='application/json')
@@ -37,7 +38,7 @@ def get_student_info(first_name, last_name):
          resp = Response(status=400, mimetype='application/json')
          return resp
 
-@app.route('/upload-image/')
+@app.route('/upload-image/', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
@@ -57,7 +58,7 @@ def upload_file():
                 success : True
             }
             return Response(json.dumps(data), status=200, mimetype='application/json')
-            
+
 if __name__ == "__main__":
     app.debug = False
     app.run(host = '0.0.0.0',port=5000)
