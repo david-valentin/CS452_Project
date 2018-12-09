@@ -12,12 +12,14 @@ class ImageCapture {
   }
 
   uploadImageToServer(data) {
-    return this.fetch(this.getServerAddress() + 'upload-image/', {
+    console.log("DATA: ", data);
+    return fetch(this.getServerAddress() + `/upload-image/`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data'
+      },
       method: 'POST',
-      body : data,
-    })
-    .then((res) => {
-      console.log("Res ", res);
+      body: data
     })
     .catch((err) => {
       console.error(err);
