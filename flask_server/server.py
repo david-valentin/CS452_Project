@@ -53,7 +53,7 @@ def upload_file():
             else:
                 print("'file' not in request.files!")
                 data = {
-                    success : False
+                    "success" : False
                 }
                 return Response(json.dumps(data), status=200, mimetype='application/json')
 
@@ -69,18 +69,18 @@ def upload_file():
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 data = {
-                    success : True
+                    "success" : True
                 }
                 return Response(json.dumps(data), status=200, mimetype='application/json')
         else:
             print("No file selected!")
             data = {
-                success : False
+                "success" : False
             }
             return Response(json.dumps(data), status=200, mimetype='application/json')
     except Exception as e:
         data = {
-            success : False
+            "success" : False
         }
         print("It didn't work :()")
         return Response(json.dumps(data), status=301, mimetype='application/json')
