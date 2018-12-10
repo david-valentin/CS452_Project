@@ -156,6 +156,3 @@ def processImage(image_path):
     except Exception as e:
         print('Could not process the image!')
         raise e
-
-
-print(processImage('./imgs/david1.JPG'))

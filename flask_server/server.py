@@ -62,28 +62,33 @@ def upload_file():
             if file and allowed_file(file.filename):
                 print("We have a file!")
                 filename = secure_filename(file.filename)
-                try:
+                # check if the file exists and
+                if (os.path.exists((os.path.join(app.config['UPLOAD_FOLDER'], filename)))):
+                    print("We have a clone")
+                    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    # Save the new file
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    first_name, last_name = script_final.processImage(result_string)
-                    result = directory_scraper_script.scrape_directory(first_name, last_name)
+                    first_name, last_name = script_final.processImage(path_string)
+                    user_email, student_address = directory_scraper_script.scrape_directory(first_name, last_name)
                     data = {
                         "success" : True,
-                        "user_email" : result[0],
-                        "student_address" : result[1]
+                        "user_email" : user_email,
+                        "student_address" : student_address
                     }
                     return Response(json.dumps(data), status=200, mimetype='application/json')
-                except Exception as e:
+                else:
+                    print("We don't have a clone")
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    first_name, last_name = script_final.processImage(path_string)
+                    user_email, student_address = directory_scraper_script.scrape_directory(first_name, last_name)
                     data = {
-                        "success" : False,
+                        "success" : True,
+                        "user_email" : user_email,
+                        "student_address" : student_address
                     }
-                    return Response(json.dumps(data), status=305, mimetype='application/json')
-        else:
-            print("No file selected!")
-            data = {
-                "success" : False
-            }
-            return Response(json.dumps(data), status=200, mimetype='application/json')
+                    return Response(json.dumps(data), status=200, mimetype='application/json')
     except Exception as e:
         data = {
             "success" : False

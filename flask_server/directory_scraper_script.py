@@ -14,7 +14,6 @@ def scrape_directory(first_name, last_name):
     try:
         vdisplay = Xvfb(width=1280, height=740, colordepth=16)
         vdisplay.start()
-
         driver = webdriver.Firefox()
         # Open the url
         driver.get('https://directory.middlebury.edu')
@@ -37,3 +36,4 @@ def scrape_directory(first_name, last_name):
         return user_email_text, student_address_text
     except Exception as e:
         print(e)
+        return "Email Not Found", "Student Address Not Found"
