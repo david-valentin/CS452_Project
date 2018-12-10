@@ -77,7 +77,6 @@ def upload_file():
             "success" : False
         }
         print("It didn't work :()")
-        raise e
         return Response(json.dumps(data), status=301, mimetype='application/json')
 
 
