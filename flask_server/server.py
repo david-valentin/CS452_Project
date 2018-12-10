@@ -61,19 +61,23 @@ def upload_file():
                 return redirect(request.url)
             if file and allowed_file(file.filename):
                 print("We have a file!")
-
                 filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-                path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                first_name, last_name = script_final.processImage(result_string)
-                result = directory_scraper_script.scrape_directory(first_name, last_name)
-                data = {
-                    "success" : True,
-                    "user_email" : result[0],
-                    "student_address" : result[1]
-                }
-                return Response(json.dumps(data), status=200, mimetype='application/json')
+                try:
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    first_name, last_name = script_final.processImage(result_string)
+                    result = directory_scraper_script.scrape_directory(first_name, last_name)
+                    data = {
+                        "success" : True,
+                        "user_email" : result[0],
+                        "student_address" : result[1]
+                    }
+                    return Response(json.dumps(data), status=200, mimetype='application/json')
+                except Exception as e:
+                    data = {
+                        "success" : False,
+                    }
+                    return Response(json.dumps(data), status=305, mimetype='application/json')
         else:
             print("No file selected!")
             data = {
