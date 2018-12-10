@@ -71,9 +71,9 @@ def upload_file():
                     path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                     first_name, last_name = script_final.processImage(path_string)
                     os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename)) # REMOVE THE FILE AFTER ITS SAVED
-                    user_email, student_address = directory_scraper_script.scrape_directory(first_name, last_name)
+                    user_email, student_address, success, status = directory_scraper_script.scrape_directory(first_name, last_name)
                     data = {
-                        "success" : True,
+                        "success" : success,
                         "user_email" : user_email,
                         "student_address" : student_address
                     }
@@ -84,13 +84,13 @@ def upload_file():
                     path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                     first_name, last_name = script_final.processImage(path_string)
                     os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename)) # REMOVE THE FILE AFTER ITS SAVED
-                    user_email, student_address = directory_scraper_script.scrape_directory(first_name, last_name)
+                    user_email, student_address, success, status = directory_scraper_script.scrape_directory(first_name, last_name)
                     data = {
-                        "success" : True,
+                        "success" : success,
                         "user_email" : user_email,
                         "student_address" : student_address
                     }
-                    return Response(json.dumps(data), status=200, mimetype='application/json')
+                    return Response(json.dumps(data), status=status, mimetype='application/json')
     except Exception as e:
         data = {
             "success" : False

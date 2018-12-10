@@ -36,4 +36,4 @@ def scrape_directory(first_name, last_name):
         return user_email_text, student_address_text
     except Exception as e:
         print(e)
-        return "Email Not Found", "Student Address Not Found"
+        return "Email Not Found", "Student Address Not Found", False, 301
