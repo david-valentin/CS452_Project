@@ -9,7 +9,8 @@ import {
   TouchableHighlight,
   View,
   Image,
-  Alert
+  Alert,
+  ActivityIndicator
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import ImageCapture from '../classes/ImageCapture';
@@ -24,7 +25,8 @@ class CameraView extends Component {
     super();
     this.state = {
       imageURL: '',
-      imageCaptured : false
+      imageCaptured : false,
+      processingImage : false
     };
     this.ImageCapture = new ImageCapture('http://basin.cs.middlebury.edu:5000');
     this.handleUploadImage = this.handleUploadImage.bind(this);
@@ -69,6 +71,7 @@ class CameraView extends Component {
    * @return {type}             description
    */
   async handleUploadImage(picturePath) {
+    this.setState({processingImage : true})
     let data = new FormData();
     var photo = {
     	uri: picturePath,
@@ -126,7 +129,7 @@ class CameraView extends Component {
           // If we were able to upload our image to the server
           if (uploadedToServer) {
             console.log("Calling the upload to the server");
-            this.setState({imageUploadedSuccessfully : true})
+            this.setState({imageUploadedSuccessfully : true, processingImage : false})
           } else {
             console.log("Failed to upload to the server");
           }
@@ -147,10 +150,16 @@ class CameraView extends Component {
       return (
         this.renderCameraView()
       );
-    } else if (this.state.imageUploadedSuccessfully) {
+    } else if (this.state.imageUploadedSuccessfully && this.state.processingImage) {
       return (
-        <View style={styles.cameraContainer}>
-          <Text>We Did it!</Text>
+        <View style={[styles.container, styles.horizontal]}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      )
+    } else if (this.state.imageUploadedSuccessfully && !this.state.processingImage) {
+      return (
+        <View style={styles.container}>
+          <DisplayUserInfo email={"dvalentin@659@gmail.com"} address={"4556"}/>
         </View>
       )
     }
@@ -161,11 +170,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'black'
+    backgroundColor: 'white'
   },
   text : {
     color: 'white',
     alignSelf: 'flex-end'
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
   },
   cameraContainer : {
     flex: 1,

@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, Response
-import directory_scraper_script
 from werkzeug.utils import secure_filename
 from werkzeug.wrappers import Request, Response
 import os
@@ -7,6 +6,9 @@ from flask_cors import CORS
 from flask_api import status
 from pyvirtualdisplay import Display
 import json
+
+import script_final
+import directory_scraper_script
 
 
 UPLOAD_FOLDER = './imgs/'
@@ -62,8 +64,14 @@ def upload_file():
 
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+                path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                first_name, last_name = script_final.processImage(result_string)
+                result = directory_scraper_script.scrape_directory(first_name, last_name)
                 data = {
-                    "success" : True
+                    "success" : True,
+                    "user_email" : result[0],
+                    "student_address" : result[1]
                 }
                 return Response(json.dumps(data), status=200, mimetype='application/json')
         else:
