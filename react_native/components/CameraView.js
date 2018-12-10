@@ -76,7 +76,7 @@ class CameraView extends Component {
     	name: 'scanned_image.jpg',
     };
     data.append('file', photo);
-    data.append('title', 'scanned_id')
+    data.append('filename', 'scanned_id')
     // Appends the uri path of the photo and grabs the image data to the data
     this.ImageCapture.uploadImageToServer(data)
       .then((response) => {
