@@ -9,7 +9,7 @@ from pyvirtualdisplay import Display
 import json
 
 
-UPLOAD_FOLDER = '/imgs/'
+UPLOAD_FOLDER = './imgs/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
