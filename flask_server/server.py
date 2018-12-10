@@ -42,7 +42,8 @@ def get_student_info(first_name, last_name):
 def upload_file():
     try:
         print("No file selected!")
-
+        file = request.files['file']
+        print("File: ", file)
         if request.method == 'POST':
             print("The method is a post request.")
             # check if the post request has the file part
@@ -55,8 +56,7 @@ def upload_file():
                     success : False
                 }
                 return Response(json.dumps(data), status=200, mimetype='application/json')
-            file = request.files['file']
-            print("File: ", file)
+
             # if user does not select file, browser also
             # submit a empty part without filename
             if file.filename == '':
