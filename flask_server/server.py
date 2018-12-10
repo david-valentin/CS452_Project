@@ -44,19 +44,9 @@ def upload_file():
         print("No file selected!")
         file = request.files['file']
         print("File: ", file)
+        print("Filename: ", file.filename)
         if request.method == 'POST':
             print("The method is a post request.")
-            # check if the post request has the file part
-            if 'file' not in request.files:
-                flash('No file part')
-                return redirect(request.url)
-            else:
-                print("'file' not in request.files!")
-                data = {
-                    "success" : False
-                }
-                return Response(json.dumps(data), status=200, mimetype='application/json')
-
             # if user does not select file, browser also
             # submit a empty part without filename
             if file.filename == '':
