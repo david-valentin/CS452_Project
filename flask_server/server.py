@@ -70,6 +70,7 @@ def upload_file():
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                     first_name, last_name = script_final.processImage(path_string)
+                    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename)) # REMOVE THE FILE AFTER ITS SAVED
                     user_email, student_address = directory_scraper_script.scrape_directory(first_name, last_name)
                     data = {
                         "success" : True,
@@ -82,6 +83,7 @@ def upload_file():
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                     first_name, last_name = script_final.processImage(path_string)
+                    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename)) # REMOVE THE FILE AFTER ITS SAVED
                     user_email, student_address = directory_scraper_script.scrape_directory(first_name, last_name)
                     data = {
                         "success" : True,
