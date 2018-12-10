@@ -115,24 +115,14 @@ class CameraView extends Component {
           this.setState({ imageURL : uri })
         })
         .then(_ => {
+          return this.handleUploadImage(this.state.imageURL)
           console.log("STATE: ", this.state.imageURL);
-          if (this.handleUploadImage(this.state.imageURL)) {
-            console.log("UPLOADED TO SERVER");
-            return true;
-          } else {
-            console.log("FAILED TO UPLOAD TO SERVER");
-            return false;
-          }
+
         })
-        .then((uploadedToServer) => {
-          console.log("DID WE UPLOAD: ", uploadedToServer);
-          // If we were able to upload our image to the server
-          if (uploadedToServer) {
-            console.log("Calling the upload to the server");
-            this.setState({imageUploadedSuccessfully : true, processingImage : false})
-          } else {
-            console.log("Failed to upload to the server");
-          }
+        .then((res) => {
+          console.log("Response: ", JSON.stringify(res));
+          // Set the state here
+          this.setState({student_address : res.student_address, student_email : res.user_email, imageUploadedSuccessfully : true, processingImage : false })
         })
         .catch((err) => {
           console.error(err);
@@ -141,7 +131,6 @@ class CameraView extends Component {
     } else {
       return false;
     }
-
   }
 
 
@@ -159,7 +148,7 @@ class CameraView extends Component {
     } else if (this.state.imageUploadedSuccessfully && !this.state.processingImage) {
       return (
         <View style={styles.container}>
-          <DisplayUserInfo email={"dvalentin@659@gmail.com"} address={"4556"}/>
+          <DisplayUserInfo email={this.state.student_email} address={this.state.student_address}/>
         </View>
       )
     }

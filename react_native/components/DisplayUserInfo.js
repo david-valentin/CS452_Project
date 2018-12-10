@@ -8,11 +8,6 @@ import { Button } from 'react-native';
 class DisplayUserInfo extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      name : "",
-      box_number : "",
-      address : ""
-    }
   }
 
   render() {
