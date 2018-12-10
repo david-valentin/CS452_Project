@@ -15,6 +15,10 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route('/')
 def index():
     return '<h1>Welcome to iLIP\'s Flask Server!</h1>'
@@ -44,6 +48,7 @@ def upload_file():
         print("No file selected!")
         file = request.files['file']
         print("File: ", file)
+        print("File: ", file.filename)
         if request.method == 'POST':
             print("The method is a post request.")
             # if user does not select file, browser also
