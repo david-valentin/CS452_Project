@@ -44,6 +44,8 @@ def upload_file():
         print("No file selected!")
         file = request.files['file']
         print("File: ", file)
+        print("Filename: ", file.filename)
+
         if request.method == 'POST':
             print("The method is a post request.")
             # if user does not select file, browser also
