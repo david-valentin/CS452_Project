@@ -33,7 +33,7 @@ def scrape_directory(first_name, last_name):
         student_address_text = student_address.text
         driver.close()
         vdisplay.stop()
-        return user_email_text, student_address_text
+        return user_email_text, student_address_text, True, 200
     except Exception as e:
         print(e)
         return "Email Not Found", "Student Address Not Found", False, 301
