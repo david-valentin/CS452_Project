@@ -12,9 +12,12 @@ import {
   Alert,
   ActivityIndicator
 } from 'react-native';
+import Svg, { Rect } from 'react-native-svg';
 import { RNCamera } from 'react-native-camera';
 import ImageCapture from '../classes/ImageCapture';
 import DisplayUserInfo from './DisplayUserInfo';
+
+const { width, height } = Dimensions.get('window');
 
 /**
  * CameraView presents the camera view for capturing the image
@@ -58,6 +61,16 @@ class CameraView extends Component {
             <TouchableOpacity style={styles.capture} onPress={this.takePicture.bind(this)}>
               <Image source={require('../assets/app-imgs/img-camera-50.png')} style={styles.capture}/>
             </TouchableOpacity>
+            <Svg height={height * 0.85} width={width * 0.8}>
+              <Rect
+                x="1"
+                y="215"
+                width={width * 0.8 - 2}
+                height={height * 0.55}
+                stroke="green"
+                strokeWidth="2"
+              />
+            </Svg>
         </View>
         </RNCamera>
       </View>
@@ -176,8 +189,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   capture: {
-    flex: 0,
-    alignSelf: 'flex-end',
+    position: 'absolute',
+    justifyContent: 'center',
+    bottom: 15,
+    // left: width / 2 - 10,
+    // right: width / 2 + 10
   }
 });
 
