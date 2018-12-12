@@ -149,10 +149,11 @@ def validID(string1):
 # and it should be able to run.
 def processImage(image_path):
     try:
+        print(image_path, type(image_path))
         raw, dog = thresholdImage(image_path)
         shid, fard = editString(raw, dog)
         final = parseString(shid, fard)
         return final[0], final[1]
     except Exception as e:
         print('Could not process the image!')
-        raise e
+        return "Email Not Found", "Student Address Not Found"

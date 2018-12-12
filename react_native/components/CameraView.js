@@ -135,8 +135,15 @@ class CameraView extends Component {
         })
         .then((res) => {
           console.log("Response: ", JSON.stringify(res));
-          // Set the state here
-          this.setState({student_address : res.student_address, student_email : res.user_email, imageUploadedSuccessfully : true, processingImage : false })
+          if (res.success) {
+            // Set the state here
+            this.setState({student_address : res.student_address, student_email : res.user_email, imageUploadedSuccessfully : true, processingImage : false })
+          } else {
+            // TODO: need to update it such that it fetches an error message instead and displays a different error message
+            // 
+            this.setState({student_address : res.student_address, student_email : res.user_email, imageUploadedSuccessfully : true, processingImage : false })
+          }
+
         })
         .catch((err) => {
           console.error(err);
