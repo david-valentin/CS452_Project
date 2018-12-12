@@ -8,9 +8,6 @@ import skimage.exposure as ske
 import re
 import string
 
-
-# In[2]:
-
 #in this function, we generalize whether or not an image is under of over exposed by seeing if the cumulative sum
 #at the middle index is greater or less than the second half of the cumulative summary
 #True means over exposed, False means Under exposed
@@ -130,10 +127,6 @@ def parseString(ocr3, key):
         result = result.split('\n')
         result2 = [i for i in result if not i.isdigit()]
         return result2
-
-
-# In[3]:
-
 
 # The validID function checks for a 8-digit number in the original OCR output and the same criteria as the parseString
 # function, but instead it just returns a True or False to know whether to proceed or not.
