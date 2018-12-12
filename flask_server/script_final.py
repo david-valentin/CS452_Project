@@ -4,12 +4,26 @@ import skimage.io as skio
 from pytesseract import image_to_string
 import skimage.color as skc
 import skimage.filters as skf
+import skimage.exposure as ske
 import re
 import string
 
 
 # In[2]:
 
+#in this function, we generalize whether or not an image is under of over exposed by seeing if the cumulative sum
+#at the middle index is greater or less than the second half of the cumulative summary
+#True means over exposed, False means Under exposed
+
+def whichWay(img1):
+    img2 = skc.rgb2gray(img1)
+    (countsL, bincL) = ske.histogram(img2)
+    sum1 = countsL.sum()
+    sum2 = countsL.cumsum()[128] #this is the middle value of the cumulative summary
+    if(sum1 - sum2 <= sum2):
+        return False
+    if(sum1 - sum2 >= sum2):
+        return True
 
 # The thresholdImage function takes in the name of any image in a given directory, and it returns two variables –
 # an edited form of the whole pytesseract OCR text output, and the ID number located on the input ID. The function
@@ -26,15 +40,27 @@ def thresholdImage(im):
     ocr1 = ''
     idn1 = []
 
-    for x in range(18,0,-1):
-        threshold = x / 20
-        imT1 = imGS > threshold
-        imT2 = skf.median(imT1)
-        ocr1 = image_to_string(imT2)
-        ocr1 = cleanString(ocr1)
-        if validID(ocr1):
-            idn1 = re.findall(r"\D(\d{8})\D", ocr1)
-            break
+    if whichWay(imGS) == True:
+        for x in range(18,0,-1):
+            threshold = x / 20
+            imT1 = imGS > threshold
+            imT2 = skf.median(imT1)
+            ocr1 = image_to_string(imT2)
+            ocr1 = cleanString(ocr1)
+            if validID(ocr1):
+                idn1 = re.findall(r"\D(\d{8})\D", ocr1)
+                break
+
+    elif whichWay(imGS) == False:
+        for x in range(2,20,1):
+            threshold = x / 20
+            imT1 = imGS > threshold
+            imT2 = skf.median(imT1)
+            ocr1 = image_to_string(imT2)
+            ocr1 = cleanString(ocr1)
+            if validID(ocr1):
+                idn1 = re.findall(r"\D(\d{8})\D", ocr1)
+                break
 
     return ocr1, idn1
 
@@ -43,13 +69,17 @@ def thresholdImage(im):
 # 'Middlebury', and 'College', and also removes all punctuations and unnecessary spaces.
 
 def cleanString(string1):
-    string2 = string1.replace('\n\n', '\n')
-    string2 = string2.replace("'", ' ')
+    string2 = string1.replace("'", ' ')
     string2 = string2.replace(' ', '')
     string2 = string2.replace('STUDENT\n', '')
     string2 = string2.replace('Middlebury\n', '')
     string2 = string2.replace('College', '')
     string2 = "".join(l for l in string2 if l not in string.punctuation)
+
+    #~This while loop is a NEW edit. We realized not all of the multiple line breaks were being removed.
+    # We introduced this to make sure that there are no extra spaces to be concise.
+    while '\n\n' in string2:
+        string2 = string2.replace('\n\n', '\n')
     return string2
 
 
@@ -98,12 +128,7 @@ def parseString(ocr3, key):
                 pass
 
         result = result.split('\n')
-        # print('test: ', result)
-        # result = " ".join(result)
         result2 = [i for i in result if not i.isdigit()]
-        #print(result2)
-        # result2 = "".join(l for l in result2 if l not in string.punctuation)
-        #result2 = ''.join(q for q in result2 if q not in '‘')
         return result2
 
 
@@ -127,6 +152,15 @@ def validID(string1):
     string3 = string2.split('\n')
     string3 = '\n'.join(string3)
     string3 = string3.replace('\n\n', '\n')
+
+    #~The addition of this dictionary and the checking for it in string3 is a NEW edit.
+    # These special characters sometimes came up in our results and would bypass as legitimate names.
+    # Removing them separately made our results much cleaner.
+
+    weirdChar = ['“','‘','—']
+    for x in weirdChar:
+        if x in string3:
+            return False
 
     counter1 = 0
     result1 = ''
