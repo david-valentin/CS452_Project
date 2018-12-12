@@ -67,6 +67,7 @@ class CameraView extends Component {
                 y="215"
                 width={width * 0.8 - 2}
                 height={height * 0.55}
+                fill="none"
                 stroke="green"
                 strokeWidth="2"
               />
