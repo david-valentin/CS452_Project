@@ -20,6 +20,9 @@ class ImageCapture {
       },
       method: 'POST',
       body: data
+    }).then((res) => {
+      // Return the res to the function
+      return res;
     })
     .catch((err) => {
       console.error(err);
