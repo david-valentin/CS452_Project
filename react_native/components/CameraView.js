@@ -158,7 +158,7 @@ class CameraView extends Component {
       return (
         this.renderCameraView()
       );
-    } else if (this.state.imageUploadedSuccessfully && this.state.processingImage) {
+    } else if (this.state.processingImage) {
       return (
         <View style={[styles.container, styles.horizontal]}>
           <ActivityIndicator size="large" color="#0000ff" />

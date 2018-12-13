@@ -78,21 +78,25 @@ def upload_file():
                 print("No file selected!")
                 return redirect(request.url)
             if file and allowed_file(file.filename):
+                print("Filename is valid!")
                 filename = secure_filename(file.filename)
                 # check if the file exists already - always will be true because we are saving it as scanned_image
                 if (os.path.exists((os.path.join(app.config['UPLOAD_FOLDER'], filename)))):
-                    print("We have a clone")
+                    print("We have a clone img!")
                     # Save the new file
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                     first_name, last_name = script_final.processImage(path_string)
                     # Check if the its a valid value if not we send an OCR error message
                     if (checkValidOCR(first_name, last_name)):
+                        print('Image passed checkValidOCR test.')
                         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename)) # REMOVE THE FILE AFTER ITS SAVED
                         user_email, student_address, success, status = directory_scraper_script.scrape_directory(first_name, last_name)
 
                         # Checks valid directory value if not we send a directory scraper error message
                         if (checkValidStudentAddress(status)):
+                            print('Image passed checkValidStudentAddress test.')
+
                             data = {
                                 "success" : success,
                                 "user_email" : user_email,
@@ -100,19 +104,22 @@ def upload_file():
                             }
                             return Response(json.dumps(data), status=200, mimetype='application/json')
                         else:
+                            print('Image did no pass checkValidStudentAddress test.')
                             data = {
                                 "success" : false,
                                 "error_msg" : app.config['DIRECTORY_SCRAPER_ERROR_MESSAGE'],
                             }
                             return Response(json.dumps(data), status=200, mimetype='application/json')
                     else:
+                        print('Image did not pass checkValidOCR test.')
                         data = {
                             "success" : false,
                             "error_msg" : app.config['OCR_ERROR_MESSAGE'],
                         }
                         return Response(json.dumps(data), status=300, mimetype='application/json')
+                # Should never hit this case
                 else:
-                    # Should never hit this case
+                    print("We don't have a clone img!")
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     path_string = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                     first_name, last_name = script_final.processImage(path_string)
@@ -120,7 +127,6 @@ def upload_file():
                     if (checkValidOCR(first_name, last_name)):
                         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename)) # REMOVE THE FILE AFTER ITS SAVED
                         user_email, student_address, success, status = directory_scraper_script.scrape_directory(first_name, last_name)
-
                         # Checks valid directory value if not we send a directory scraper error message
                         if (checkValidStudentAddress(status)):
                             data = {
