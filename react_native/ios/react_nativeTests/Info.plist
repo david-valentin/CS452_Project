@@ -20,5 +20,17 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationCategoryType</key>
+	<string>&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;
+&lt;dict&gt;
+  &lt;key&gt;NSExceptionDomains&lt;/key&gt;
+  &lt;dict&gt;
+    &lt;key&gt;localhost&lt;/key&gt;
+    &lt;dict&gt;
+      &lt;key&gt;NSExceptionAllowsInsecureHTTPLoads&lt;/key&gt;
+      &lt;true/&gt;
+    &lt;/dict&gt;
+  &lt;/dict&gt;
+&lt;/dict&gt;</string>
 </dict>
 </plist>

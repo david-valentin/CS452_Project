@@ -172,7 +172,7 @@ class CameraView extends Component {
       )
     } else if (!this.state.imageUploadedSuccessfully && this.state.error) {
       <View style={styles.container}>
-        <Text>{this.state.error_msg}</Tex>
+        <Text>{this.state.error_msg}</Text>
       </View>
     }
   }
