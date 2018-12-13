@@ -110,7 +110,7 @@ def upload_file():
                             "success" : false,
                             "error_msg" : app.config['OCR_ERROR_MESSAGE'],
                         }
-                        return Response(json.dumps(data), status=200, mimetype='application/json')
+                        return Response(json.dumps(data), status=300, mimetype='application/json')
                 else:
                     # Should never hit this case
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -140,7 +140,7 @@ def upload_file():
                             "success" : false,
                             "error_msg" : app.config['OCR_ERROR_MESSAGE'],
                         }
-                        return Response(json.dumps(data), status=200, mimetype='application/json')
+                        return Response(json.dumps(data), status=300, mimetype='application/json')
 
 
     except Exception as e:

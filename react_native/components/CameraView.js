@@ -131,7 +131,6 @@ class CameraView extends Component {
         .then(_ => {
           return this.handleUploadImage(this.state.imageURL)
           console.log("STATE: ", this.state.imageURL);
-
         })
         .then((res) => {
           console.log("Response: ", JSON.stringify(res));
@@ -140,8 +139,7 @@ class CameraView extends Component {
             this.setState({student_address : res.student_address, student_email : res.user_email, imageUploadedSuccessfully : true, processingImage : false })
           } else {
             // TODO: need to update it such that it fetches an error message instead and displays a different error message
-            // 
-            this.setState({student_address : res.student_address, student_email : res.user_email, imageUploadedSuccessfully : true, processingImage : false })
+            this.setState({ imageUploadedSuccessfully : false, processingImage : false, error_msg : res.error_msg, error : true })
           }
 
         })
@@ -172,6 +170,10 @@ class CameraView extends Component {
           <DisplayUserInfo email={this.state.student_email} address={this.state.student_address}/>
         </View>
       )
+    } else if (!this.state.imageUploadedSuccessfully && this.state.error) {
+      <View style={styles.container}>
+        <Text>{this.state.error_msg}</Tex>
+      </View>
     }
   }
 }
